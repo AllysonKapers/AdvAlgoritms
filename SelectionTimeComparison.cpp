@@ -13,85 +13,74 @@ using namespace std;
 /* functions for selection sort*/
 void swap(int *xp, int *yp)
 {
-    int temp = *xp;
-    *xp = *yp;
-    *yp = temp;
-}
- 
-void selectionSort(int arr[], int n)
-{
-    int i, j, min_idx;
- 
-    // One by one move boundary of unsorted subarray
-    for (i = 0; i < n-1; i++)
-    {
-        // Find the minimum element in unsorted array
-        min_idx = i;
-        for (j = i+1; j < n; j++)
-        if (arr[j] < arr[min_idx])
-            min_idx = j;
-        // Swap the found minimum element with the first element
-        swap(&arr[min_idx], &arr[i]);
-    }
+	int temp = *xp;
+	*xp = *yp;
+	*yp = temp;
 }
 
-/* Function to print an array */
-void printArray(int arr[], int size)
+void selectionSort(int arr[], int n)
 {
-    int i;
-    for (i=0; i < size; i++)
-        cout << arr[i] << " ";
-    cout << endl;
+	int i, j, min_idx;
+
+	// One by one move boundary of unsorted subarray
+	for (i = 0; i < n - 1; i++)
+	{
+		// Find the minimum element in unsorted array
+		min_idx = i;
+		for (j = i + 1; j < n; j++)
+			if (arr[j] < arr[min_idx])
+				min_idx = j;
+		// Swap the found minimum element with the first element
+		swap(&arr[min_idx], &arr[i]);
+	}
 }
 
 int main() {
-  ifstream infile("C.txt");
-  int temp;
-  int nx;
+	ifstream infile("SelectionDescending.txt");
+	int temp;
+	int nx = 0;
 
-  while(infile >> temp) {
-      //cout << temp<<" "<<endl;
-      nx++;
-  }
-  cout<<"Total:"<<nx<<endl;
+	while (infile >> temp) {
+		//cout << temp<<" "<<endl;
+		nx++;
+	}
+	cout << "Total:" << nx << endl;
 
-  infile.close();
-  infile.open("C.txt");
+	infile.close();
+	infile.open("SelectionDescending.txt");
 
-  int *A = new int[nx]();
+	int *A = new int[nx]();
 
-  for (size_t i=0; i<nx && infile >> A[i]; i++);
-  infile.close();
+	for (size_t i = 0; i<nx && infile >> A[i]; i++)
+	infile.close();
 
-  for (size_t i=0;i<nx-1;i++) {
-    for (size_t j=i;j<nx;j++) {
-      if (A[i]>A[j]) {
-        int temp=A[i];
-        A[i]=A[j];
-        A[j]=temp;
-      }
-    }
-  }
+	for (size_t i = 0; i < nx - 1; i++) {
+		for (size_t j = i; j < nx; j++) {
+			if (A[i] > A[j]) {
+				int temp = A[i];
+				A[i] = A[j];
+				A[j] = temp;
+			}
+		}
+	}
 
-  using Clock = chrono::high_resolution_clock;
+	using Clock = chrono::high_resolution_clock;
 
-  clock_t start, stop;
+	clock_t start, stop;
 
-  long long Selectionelapsedtime;
-  long long Insertionelapsedtime;
-    
-  start = Clock::now().time_since_epoch().count();
+	long long Selectionelapsedtime;
+	long long Insertionelapsedtime;
 
-  selectionSort(A, nx);
+	start = Clock::now().time_since_epoch().count();
 
-  stop = Clock::now().time_since_epoch().count();
-  Selectionelapsedtime = (long long)(stop - start);
+	selectionSort(A, nx);
 
-  cout << "Select Sorted array: \n";
-  printArray(A, nx);
+	stop = Clock::now().time_since_epoch().count();
+	Selectionelapsedtime = (long long)(stop - start);
 
-  cout << "Selectiontime in nanoseconds: " << Selectionelapsedtime << '\n';
-  delete [] A;
+	cout << "Selectiontime in nanoseconds: " << Selectionelapsedtime << '\n';
+	delete[] A;
 
-  return 0;
-} 
+	system("pause");
+	return 0;
+}
